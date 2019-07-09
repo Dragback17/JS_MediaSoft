@@ -2,12 +2,20 @@ function first_opr() {
 	let i;
 	i = prompt('Введите первый операнд','');
 	let i_num = +i;
+	if (isNaN(i_num)){
+		alert('Вы ввели некоректные данные, попробуйте еще раз');
+		return first_opr();
+	}
 	return i_num;
 }
 function second_opr() {
 	let j;
 	j = prompt('Введите второй операнд','');
 	let j_num = +j;
+	if (isNaN(j_num)){
+		alert('Вы ввели некоректные данные, попробуйте еще раз');
+		return second_opr();
+	}
 	return j_num;
 }
 function range_action() {
@@ -15,10 +23,10 @@ function range_action() {
 	m = prompt('Выберите операцию: +, -, *, /, %','+');
 	return m;
 }
-function calculate(opr1,opr2,range) {
-	if (isNaN(opr1)||isNaN(opr2)){
-		alert('Вы ввели некоректные данные, попробуйте еще раз');
-	}else
+function calculate() {
+		let opr1 = first_opr();
+		let opr2 = second_opr();
+		let range = range_action();
 		switch(range){
 			case'+':
 			alert(opr1 + opr2);
@@ -37,9 +45,7 @@ function calculate(opr1,opr2,range) {
 			break;
 			default:
 			alert('Я таких операций не знаю');
-		}
+			}
+			return calculate();
 }
-let opr1 = first_opr();
-let opr2 = second_opr();
-let range = range_action();
-calculate(opr1,opr2,range);
+calculate();
