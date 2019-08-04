@@ -8,13 +8,24 @@
   flex-wrap: wrap;
   margin: 0 auto;
 }
+
 body {
 	margin: 50px;
 	background-color: grey; 
 }
+
 .excel {
 	width: 20px;
 	height: 20px;
 	margin: 0 auto;
 
+}
+
+.snake {
+	background: #3EFC02FF;
+
+}
+
+.eat {
+	background: white;
 }
