@@ -55,15 +55,15 @@ function createCoor() {
 
 function createEat() {
 
-	let eatCoor = createCoor();
+	let [ eatCoor1, eatCoor2 ] = createCoor();
 
-	let eat = document.querySelector('[posX = "' + eatCoor[0] + '"][posY = "' + eatCoor[1] + '"]');		
+	let eat = document.querySelector('[posX = "' + eatCoor1 + '"][posY = "' + eatCoor2 + '"]');		
 
-	while (eat.classList.contains('snakeBody')) {
+	while (eat.classList.contains('snake')) {
 
 		let eatCoor = createCoor();
 
-		let eat = document.querySelector('[posX = "' + eatCoor[0] + '"][posY = "' + eatCoor[1] + '"]');
+		eat = document.querySelector('[posX = "' + eatCoor1 + '"][posY = "' + eatCoor2 + '"]');
 
 	}
 
@@ -75,13 +75,17 @@ function createEat() {
 
 let eat1 = createEat();
 
-function createSnake() {
-	
-	let snakeCoor = createCoor();
+let interval;
 
-	let snakeBody = [document.querySelector('[posX = "' + snakeCoor[0] + '"][posY = "' + snakeCoor[1] + '"]'), 
-document.querySelector('[posX = "' + (snakeCoor[0] - 1) + '"][posY = "' + snakeCoor[1] + '"]'), 
-document.querySelector('[posX = "' + (snakeCoor[0] - 2) + '"][posY = "' + snakeCoor[1] + '"]')];
+function createSnake() {
+
+	let steps = false;
+	
+	let [ snakeCoor1, snakeCoor2 ] = createCoor();
+
+	let snakeBody = [document.querySelector('[posX = "' + snakeCoor1 + '"][posY = "' + snakeCoor2 + '"]'), 
+document.querySelector('[posX = "' + (snakeCoor1 - 1) + '"][posY = "' + snakeCoor2 + '"]'), 
+document.querySelector('[posX = "' + (snakeCoor1 - 2) + '"][posY = "' + snakeCoor2 + '"]')];
 
 	for (let i =0; i < snakeBody.length; i++) {
 
@@ -93,27 +97,38 @@ document.querySelector('[posX = "' + (snakeCoor[0] - 2) + '"][posY = "' + snakeC
 
 window.addEventListener('keydown', function (e) {
 
+	if (steps == true) {
+
 
 		if (e.keyCode == 37 && direction != 'right'){
 
 			direction = 'left';
 
+			steps = false;
+
 		}
 		else if (e.keyCode == 38 && direction != 'down'){
+
 			direction = 'up';
+
+			steps = false;
 
 		}
 		else if (e.keyCode == 39 && direction != 'left'){
 
 			direction = 'right';
 
+			steps = false;
+
 		}
 		else if (e.keyCode == 40 && direction != 'up'){
 
 			direction = 'down';
 
+			steps = false;
+
 		}
-	});
+	}});
 
 	function snakeMove() {
 
@@ -187,6 +202,12 @@ window.addEventListener('keydown', function (e) {
 			eat1 = createEat();
 
 			}
+
+			if (snakeBody[0].classList.contains('snake')) {
+
+				alert('Game over');
+				location.reload(true);
+			}
 		
 
 		for (let i = 0; i < snakeBody.length; i++) {
@@ -195,9 +216,11 @@ window.addEventListener('keydown', function (e) {
 
 		}
 
+		steps = true;
+
 	}
 
-	let interval = setInterval(snakeMove, 300);
+	interval = setInterval(snakeMove, 300);
 
 }
 	
